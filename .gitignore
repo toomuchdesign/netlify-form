@@ -3,6 +3,7 @@
 *.db
 *.log
 node_modules
+lambda
 
 # Trailing dotted files
 !.all-contributorsrc
