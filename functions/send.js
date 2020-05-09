@@ -2,13 +2,18 @@ const sgMail = require('@sendgrid/mail');
 
 exports.handler = function(event, context, callback) {
   const data = JSON.parse(event.body);
-  console.log('data', data);
+
+  // @TODO validate data
+  if (data.spam) {
+    callback(new Error('Validation error'));
+  }
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const msg = {
+    from: 'hi@andreacarraro.it', // Validated address
     to: 'me@andreacarraro.it',
-    from: data.from,
-    subject: 'Message from Netlify form',
+    replyTo: data.from,
+    subject: `Email from Netlify form from [${data.from}]`,
     text: data.message,
   };
   sgMail
