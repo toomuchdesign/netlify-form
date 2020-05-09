@@ -9,6 +9,7 @@ exports.handler = function(event, context, callback) {
   };
 
   const req = https.request(options, res => {
+    res.setEncoding('utf8');
     res.on('data', body => {
       callback(null, {statusCode: res.statusCode, body});
     });
