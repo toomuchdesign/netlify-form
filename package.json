@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "start": "npm run start:functions",
-    "start:functions": "netlify-lambda serve functions",
+    "start:functions": "netlify-lambda serve --config ./webpack.functions.js functions",
     "build": "npm run build:functions",
     "build:functions": "netlify-lambda build functions",
     "test": "echo \"No test specified\"",
@@ -23,6 +23,7 @@
   "author": "Andrea Carraro <me@andreacarraro.it>",
   "license": "ISC",
   "devDependencies": {
+    "dotenv-webpack": "^1.7.0",
     "netlify-lambda": "^1.6.3",
     "prettier": "^1.0.0"
   },
