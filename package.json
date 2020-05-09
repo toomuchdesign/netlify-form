@@ -25,5 +25,8 @@
   "devDependencies": {
     "netlify-lambda": "^1.6.3",
     "prettier": "^1.0.0"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.1.0"
   }
 }
