@@ -1,23 +1,18 @@
-const https = require('https');
+const sgMail = require('@sendgrid/mail');
 
 exports.handler = function(event, context, callback) {
-  const options = {
-    hostname: 'www.andreacarraro.it',
-    path:
-      '/scripts/contactmail.php?name=John&email=test%40gmail.com&test=Lorem&ajx=1',
-    method: 'GET',
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const msg = {
+    to: 'me@andreacarraro.it',
+    from: 'hi@andreacarraro.it',
+    subject: 'Sending with Twilio SendGrid is Fun',
+    text: 'and easy to do anywhere, even with Node.js',
+    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
   };
-
-  const req = https.request(options, res => {
-    res.setEncoding('utf8');
-    res.on('data', body => {
-      callback(null, {statusCode: res.statusCode, body});
-    });
-  });
-
-  req.on('error', error => {
-    callback(error);
-  });
-
-  req.end();
+  sgMail
+    .send(msg)
+    .then(([res]) => {
+      callback(null, {statusCode: res.statusCode, body: res.body});
+    })
+    .catch(err => callback(err, null));
 };
